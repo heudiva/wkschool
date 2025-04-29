@@ -1,7 +1,6 @@
 <?php
 
-use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ClassController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\Admin\SupplierController;
@@ -61,28 +60,6 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::controller(ProductController::class)
-// ->middleware('auth')
-->name('admin.')
-->group(function () {
-    Route::get('product', 'index')->name('product.index');
-    Route::post('product/store', 'store')->name('product.store'); // Added proper naming & structure
-    Route::post('product/edit', 'edit')->name('product.edit'); // Added proper naming & structure
-    Route::post('product/update', 'update')->name('product.update'); // Added proper naming & structure
-    Route::post('product/delete', 'delete')->name('product.delete'); // Added proper naming & structure
-    Route::post('product/destroy', 'destroy')->name('product.destroy'); // Added proper naming & structure
-});
-
-Route::controller(CategoryController::class)
-->name('admin.')
-->group(function () {
-    Route::get('category', 'index')->name('category.index');
-    Route::post('category/store', 'store')->name('category.store'); // Added proper naming & structure
-    Route::post('category/edit', 'edit')->name('category.edit'); // Added proper naming & structure
-    Route::post('category/update', 'update')->name('category.update'); // Added proper naming & structure
-    Route::post('category/delete', 'delete')->name('category.delete'); // Added proper naming & structure
-    Route::post('category/destroy', 'destroy')->name('category.destroy'); // Added proper naming & structure
-});
 
 Route::controller(MessageController::class)
 ->name('message.')
@@ -110,6 +87,15 @@ Route::controller(StudentController::class)
     Route::post('student/delete', 'delete')->name('student.delete'); // Added proper naming & structure
     Route::post('student/deletes', 'deletes')->name('student.deletes'); // Added proper naming & structure
     Route::post('student/destroy', 'destroy')->name('student.destroy'); // Added proper naming & structure
+});
+
+
+Route::controller(ClassController::class)
+->name('admin.')
+->group(function()
+{
+    Route::get('class', 'index')->name('class.index');
+    Route::get('store', 'store')->name('class.store');
 });
 
 

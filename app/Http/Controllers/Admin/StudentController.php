@@ -49,14 +49,14 @@ class StudentController extends Controller
             'commune'   => 'nullable|string|max:255',
             'district'  => 'nullable|string|max:255',
             'province'  => 'nullable|string|max:255',
-            'image'     => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // max 800KB
+            // 'image'     => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // max 800KB
         ]);
 
         if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()->all()]);
         }
-        $imageName = time() . '.' . $formData['image']->extension();
-        $formData['image']->move(public_path('uploads/students/'), $imageName);
+        // $imageName = time() . '.' . $formData['image']->extension();
+        // $formData['image']->move(public_path('uploads/students/'), $imageName);
         // Create student
         $student = new Student();
         $student->fname = $formData['fname'];
@@ -65,7 +65,7 @@ class StudentController extends Controller
         $student->dob = $formData['dob'] ?? null;
         $student->phone = $formData['phone'];
         $student->email = $formData['email'];
-        $student->image = $imageName;
+        // $student->image = $imageName;
         $student->save();
 
         // Create address (polymorphic)
