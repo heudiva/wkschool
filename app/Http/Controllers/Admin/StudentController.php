@@ -11,27 +11,17 @@ use Illuminate\Support\Facades\Validator;
 
 class StudentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
-        return view('admin.student.students', [
-            'students' => Student::paginate(15)
-        ]);
+        $students = Student::paginate(15);
+        return view('admin.student.students', compact('students'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+    public function create() {
+        return view('admin.student.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
 
     public function store(Request $request)
     {
@@ -43,8 +33,8 @@ class StudentController extends Controller
             'lname'     => 'required|string|max:255',
             'gender'    => 'required|in:male,female',
             'dob'       => 'nullable',
-            'phone'     => 'nullable|string|max:20',
-            'email'     => 'nullable|email|max:255',
+            // 'phone'     => 'nullable|string|max:20',
+            // 'email'     => 'nullable|email|max:255',
             'village'   => 'nullable|string|max:255',
             'commune'   => 'nullable|string|max:255',
             'district'  => 'nullable|string|max:255',
@@ -63,8 +53,8 @@ class StudentController extends Controller
         $student->lname = $formData['lname'] ?? null;
         $student->gender = $formData['gender'];
         $student->dob = $formData['dob'] ?? null;
-        $student->phone = $formData['phone'];
-        $student->email = $formData['email'];
+        // $student->phone = $formData['phone'];
+        // $student->email = $formData['email'];
         // $student->image = $imageName;
         $student->save();
 
@@ -76,36 +66,46 @@ class StudentController extends Controller
             'province' => $formData['province'] ?? null,
         ]);
 
+        // Create address (polymorphic)
+        $student->class()->create([
+            'name'  => 2 ?? null,
+            'section'  => 2 ?? null
+        ]);
+
         return response()->json([
             'success' => true,
             'message' => 'Student created successfully!',
             'student' => $student
         ], 201);
     }
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+
+
+    public function edit(Request $request)
     {
-        //
+        $student = Student::with('address')->find($request->id);
+    
+        if (!$student) {
+            return response()->json(['error' => 'Student not found.'], 404);
+        }
+    
+        return response()->json([
+            'id'       => $student->id,
+            'fname'    => $student->fname,
+            'lname'    => $student->lname,
+            'dob'      => $student->dob,
+            // 'email'    => $student->email,
+            'gender'   => $student->gender,
+            'class_id' => $student->class_id,
+            'address'  => [
+                'village'  => $student->address->village ?? '',
+                'commune'  => $student->address->commune ?? '',
+                'district' => $student->address->district ?? '',
+                'province' => $student->address->province ?? '',
+            ]
+        ]);
     }
+    
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id) {}
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function delete(Request $request)
     {
         return Student::find($request->id);

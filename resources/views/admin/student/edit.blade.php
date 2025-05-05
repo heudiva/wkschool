@@ -43,10 +43,10 @@
 
 
 
-        $(document).on('click', '#EditstudentBtn', function(e) {
+        $(document).on('click', '.edit-student-btn', function(e) {
             e.preventDefault();
             var id = $(this).val();
-            $('#EditstudentForm')[0].reset();
+            $('#update-student-form')[0].reset();
 
             $.ajax({
                 type: "POST",
@@ -57,26 +57,29 @@
                 },
                 success: function(response) {
                     $('#id').val(response.id);
-                    $('#studentname').val(response.studentname);
-                    $('#name').val(response.name);
+                    $('#fname').val(response.fname);
+                    $('#lname').val(response.lname);
                     $('#email').val(response.email);
-                    // Ensure correct selection of studenttype
-                    $('#studenttype').val(response.studenttype).change();
+                    $('#dob').val(response.dob);
 
-                    // Alternative method if .val(response.studenttype) doesn't work
-                    $('#studenttype option').each(function() {
-                        if ($(this).val() === response.studenttype) {
-                            $(this).prop('selected', true);
-                        }
-                    });
+                    $('#village').val(response.address?.village ?? '');
+                    $('#commune').val(response.address?.commune ?? '');
+                    $('#district').val(response.address?.district ?? '');
+                    $('#province').val(response.address?.province ?? '');
+
+                    $('#class').val(response.class_id ?? '').change();
+                    $('#gender').val(response.gender ?? '').change();
+                },
+                error: function(xhr) {
+                    alert("Something went wrong. Please try again.");
                 }
             });
-
         });
 
-        $('#EditstudentForm').on('submit', function(e){
+
+        $('#edit-student-btn').on('submit', function(e){
             e.preventDefault();
-            var data = $('#EditstudentForm').serialize();
+            var data = $('#edit-student-btn').serialize();
             $.ajax({
                 type: "POST",
                 url: "{{ route('admin.student.update') }}",

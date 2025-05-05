@@ -23,7 +23,7 @@
       }
   </script>
 </head>
-<body class="bg-gray-50 dark:bg-gray-800">
+<body class="bg-gray-50 dark:bg-gray-900">
 
   @if (session('status'))
     <div class="absolute z-50 text-red-600">{{ session('status') }}</div>

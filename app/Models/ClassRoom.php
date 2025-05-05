@@ -12,4 +12,8 @@ class ClassRoom extends Model
     public function teacher(){
         return $this->belongsTo(Teacher::class);
     }
+
+    public function student(){
+        return $this->belongsTo(Student::class);
+    }
 }

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->date('dob')->nullable();
             $table->string('phone', 50)->nullable();
             $table->string('email')->nullable();
+            $table->foreignId('parent_id')->nullable();
             $table->foreignId('address_id')->nullable();
             $table->foreignId('class_id')->nullable();
             $table->string('active', 50)->nullable();

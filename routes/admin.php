@@ -82,6 +82,7 @@ Route::controller(StudentController::class)
 ->group(function () {
     Route::get('student', 'index')->name('student.index');
     Route::post('student/store', 'store')->name('student.store'); // Added proper naming & structure
+    Route::get('student/create', 'create')->name('student.create'); // Create view student & store
     Route::post('student/edit', 'edit')->name('student.edit'); // Added proper naming & structure
     Route::post('student/update', 'update')->name('student.update'); // Added proper naming & structure
     Route::post('student/delete', 'delete')->name('student.delete'); // Added proper naming & structure

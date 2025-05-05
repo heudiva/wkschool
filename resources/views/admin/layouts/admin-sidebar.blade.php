@@ -31,9 +31,12 @@
                 <span class="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item>Student</span>
                 <svg sidebar-toggle-item class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
             </button>
-            <ul id="dropdown-student" class="space-y-2 py-2 {{ request()->routeIs('admin.student.index') ? '' : 'hidden' }} ">
+            <ul id="dropdown-student" class="space-y-2 py-2 {{ request()->routeIs('admin.student.*') ? '' : 'hidden' }} ">
               <li>
                 <a href="{{ route('admin.student.index') }}" class="{{ request()->routeIs('admin.student.index') ? 'bg-gray-100 dark:bg-gray-700' : '' }} text-base text-gray-900 rounded-lg flex items-center p-2 group hover:bg-gray-100 transition duration-75 pl-11 dark:text-gray-200 dark:hover:bg-gray-700 ">All Student</a>
+              </li>
+              <li>
+                <a href="{{ route('admin.student.create') }}" class="{{ request()->routeIs('admin.student.create') ? 'bg-gray-100 dark:bg-gray-700' : '' }} text-base text-gray-900 rounded-lg flex items-center p-2 group hover:bg-gray-100 transition duration-75 pl-11 dark:text-gray-200 dark:hover:bg-gray-700 ">Add Student</a>
               </li>
               <li>
                 <a href="#" class="text-base text-gray-900 rounded-lg flex items-center p-2 group hover:bg-gray-100 transition duration-75 pl-11 dark:text-gray-200 dark:hover:bg-gray-700 ">Student Details</a>
